@@ -1,0 +1,10 @@
+{
+  "browser": "chrome",
+  "url": "https://buyme.co.il/",
+  "name": "Avishay",
+  "email":"'avishay@kuku.com",
+  "phone":"0501234567",
+  "company":"Acme",
+  "website":"https://test.netlify.app/",
+  "numOfEmployees":"51-500"
+}
