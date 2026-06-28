@@ -13,24 +13,30 @@ test.describe('Fill all empty fields and submit', () => {
     
     test('Fill empty fields and assert that the right values entered', async ({ page }) => {
         
-        // 4. מאתחלים את ה-factory מקומית בתוך הטסט (בול כמו בפרויקט הביטוח)
+        // This factory creates and manages all the website pages in one place 
         const factory = new PageFactory(page);
 
+        // All the values for need to entered on form pulled here from the json file
+        const testData = {
+            name: getDataFromJson('name'),
+            email: getDataFromJson('email'),
+            phone: getDataFromJson('phone'),
+            company: getDataFromJson('company'),
+            website: getDataFromJson('website'),
+            numOfEmployees: getDataFromJson('numOfEmployees')
+        };
+
         //  Fill fieds
-        await factory.landingPage.fillName_Field(getDataFromJson('name'));
-        await factory.landingPage.fillEmail_Field(getDataFromJson('email'));
-        await factory.landingPage.fillPhone_Field(getDataFromJson('phone'));
-        await factory.landingPage.fillCompany_Field(getDataFromJson('company'));
-        await factory.landingPage.fillWebsite_Field(getDataFromJson('website'));
-        await factory.landingPage.selectNumberOfEmployees_Field(getDataFromJson('numOfEmployees'));
+        await factory.landingPage.fillCompleteForm(testData);
+    
 
         //  Assertions  
-        await expect(factory.landingPage.name_Field).toHaveValue(getDataFromJson('name'));
-        await expect(factory.landingPage.email_Field).toHaveValue(getDataFromJson('email'));
-        await expect(factory.landingPage.phone_Field).toHaveValue(getDataFromJson('phone'));
-        await expect(factory.landingPage.company_Field).toHaveValue(getDataFromJson('company'));
-        await expect(factory.landingPage.website_Field).toHaveValue(getDataFromJson('website'));
-        await expect(factory.landingPage.numberOfEmployees_select).toHaveValue(getDataFromJson('numOfEmployees'));
+        await expect(factory.landingPage.name_Field).toHaveValue(testData.name);
+        await expect(factory.landingPage.email_Field).toHaveValue(testData.email);
+        await expect(factory.landingPage.phone_Field).toHaveValue(testData.phone);
+        await expect(factory.landingPage.company_Field).toHaveValue(testData.company);
+        await expect(factory.landingPage.website_Field).toHaveValue(testData.website);
+        await expect(factory.landingPage.numberOfEmployees_select).toHaveValue(testData.numOfEmployees);
 
         //  Submit and print the page title
         await page.screenshot({ path: './SCREENSHOT/screenshot.png' });

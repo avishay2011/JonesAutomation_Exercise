@@ -1,4 +1,4 @@
- const BasePage = require('./BasePage');
+const BasePage = require('./BasePage');
 
 class LandingPage extends BasePage{
   constructor(page) {
@@ -41,6 +41,20 @@ async fillCompany_Field(company){
   async selectNumberOfEmployees_Field(employeesNum){
        await this.selectByOption(this.numberOfEmployees_select,employeesNum);
   }
+  
+  //One flow method that contains all the methods that needed for the form
+  async fillCompleteForm(data) {
+    await this.fillName_Field(data.name);
+    await this.fillEmail_Field(data.email);
+    await this.fillPhone_Field(data.phone);
+    await this.fillCompany_Field(data.company);
+    await this.fillWebsite_Field(data.website);
+    await this.numberOfEmployees_select.selectOption(data.numOfEmployees);
+}
+
+
+
+  
 
 
 async clickSubmit_Button() {
